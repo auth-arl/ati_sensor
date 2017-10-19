@@ -1,6 +1,9 @@
 cmake_minimum_required(VERSION 2.8.2)
 project(ati_sensor)
 
+# Use C++  for initialise an std::vector without a constructor
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11")
+
 if(NOT CMAKE_BUILD_TYPE)
     set(CMAKE_BUILD_TYPE Release)
 endif()
@@ -10,6 +13,7 @@ find_package(catkin REQUIRED COMPONENTS
   std_srvs
   std_msgs
   geometry_msgs
+  autharl_core
 )
 
 set(CMAKE_MODULE_PATH ${CMAKE_CURRENT_SOURCE_DIR}/config)
@@ -24,7 +28,7 @@ include_directories(include
     ${catkin_INCLUDE_DIRS}
 )
 
-add_library(ati_sensor src/ft_sensor.cpp)
+add_library(ati_sensor src/ft_sensor.cpp src/ati_sensor.cpp)
 
 set(CMAKE_MODULE_PATH ${CMAKE_CURRENT_SOURCE_DIR}/config)
 find_package(Xenomai QUIET)
@@ -51,7 +55,7 @@ else()
     include_directories(${LIBXML2_INCLUDE_DIR})
 endif()
 
-target_link_libraries(ati_sensor ${LIBXML2_LIBRARIES} ${XENOMAI_RTDM_LIBRARIES})
+target_link_libraries(ati_sensor ${LIBXML2_LIBRARIES} ${XENOMAI_RTDM_LIBRARIES} autharl-robot)
 
 add_executable(ft_sensor_node src/ft_sensor_node.cpp)
 target_link_libraries(ft_sensor_node ati_sensor ${catkin_LIBRARIES})
