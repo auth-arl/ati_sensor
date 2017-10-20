@@ -20,7 +20,7 @@ namespace sensor
 class Sensor : public arl::robot::Sensor
 {
 public:
-  explicit Sensor(const std::string& name = "Ati Sensor");
+  explicit Sensor(const std::string& name = "Ati Sensor", const std::string& frame_id = "ati_sensor");
 
   void getData(KDL::JntArray &output);
   void getData(arma::vec &output);

@@ -12,7 +12,7 @@ namespace ati
 {
   namespace sensor
   {
-    Sensor::Sensor(const std::string& name) :
+    Sensor::Sensor(const std::string& name, const std::string& frame_id) :
         arl::robot::Sensor(name)
     {
       std::cout << "Creating sensor" << std::endl;
@@ -27,6 +27,10 @@ namespace ati
 
       std::cout << "Setting sensor bias" << std::endl;
       sensor_->setBias();
+
+      this->frame_id = frame_id;
+
+      type = FT_SENSOR;
     }
 
     void Sensor::getData(KDL::JntArray &output)
