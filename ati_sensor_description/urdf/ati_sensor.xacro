@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro" name="ati_sensor">
+
+    <!-- Create a joint to connect the arm with the tool -->
+    <joint name="arm_to_ati_sensor" type="fixed">
+      <parent link="lwr_arm_7_link" />
+      <child link = "ati_mini_40" />
+      <origin xyz="0.0 0.0 0.0" rpy="0 0 0" />
+    </joint>
+    <!-- Create the link of the handle -->
+    <link name="ati_mini_40">
+      <visual>
+        <geometry>
+          <mesh filename="package://ati_sensor/../ati_sensor_description/meshes/ati_mini_40_complete.STL"/>
+        </geometry>
+      </visual>
+    </link>
+
+</robot>
